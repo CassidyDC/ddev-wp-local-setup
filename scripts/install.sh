@@ -20,7 +20,7 @@ if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
   git clone --depth 1 --filter=blob:none --sparse git@github.com:CassidyDC/development-toolset.git cassidydc-temp-toolset
   cd cassidydc-temp-toolset
   git sparse-checkout set root
-  cp -r root/* ../
+  cp -r root/. ../
   cd ..
   rm -rf cassidydc-temp-toolset
 fi
