@@ -8,6 +8,7 @@ WP_USER_PASS='password'
 WP_USER_EMAIL='admin@example.com'
 
 ## Boolean Settings
+INSTALL_CASSIDYDC_DEV_TOOLSET=true # Installs https://github.com/CassidyDC/development-toolset `root` files
 INSTALL_CASSIDYDC_STARTER_THEME=false # Install CassidyDC's WP Starter Block Theme
 INSTALL_GIT=true # Install local Git repo and .gitignore file for the project
 INSTALL_RAY_CONNECTIONS=true # Install Spatie Ray app connection files to work with Docker containers

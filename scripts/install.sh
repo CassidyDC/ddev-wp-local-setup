@@ -1,17 +1,28 @@
 #!/bin/bash
 
 # Get the constants
-source ddev-wp-setup-script/constants.sh
+source ddev-wp-setup-script/scripts/constants.sh
 
 # Get the install settings
-source ${ROOT_DIR}/settings.sh
+source ${SCRIPTS_DIR}/settings.sh
 
 echo '' # new line
 
 # Confirm WP_USER_EMAIL is a valid email address before proceeding
 if ! [[ "$WP_USER_EMAIL" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
-  printf "${BRIGHT_RED}ERROR: ${WP_USER_EMAIL}${RESET}${RED} is not a valid email address. Please update the ${BRIGHT_RED}WP_USER_EMAIL${RESET}${RED} setting in ${BRIGHT_RED}settings.sh${RESET}${RED} with a valid email and rerun the install script.${RESET}\n\n"
+  printf "${BRIGHT_RED}ERROR: ${WP_USER_EMAIL}${RESET}${RED} is not a valid email address. Please update the ${BRIGHT_RED}WP_USER_EMAIL${RESET}${RED} setting in ${BRIGHT_RED}scripts/settings.sh${RESET}${RED} with a valid email and rerun the install script.${RESET}\n\n"
   exit 1
+fi
+
+# Install CassidyDC Development Toolset root config files
+if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
+  printf "${BLUE}Installing CassidyDC Development Toolset config files...${RESET}\n"
+  git clone --depth 1 --filter=blob:none --sparse git@github.com:CassidyDC/development-toolset.git cassidydc-temp-toolset
+  cd cassidydc-temp-toolset
+  git sparse-checkout set root
+  cp -r root/* ../
+  cd ..
+  rm -rf cassidydc-temp-toolset
 fi
 
 # Install WP Core Files in 'wordpress' directory with roots/wordpress composer package
@@ -32,7 +43,7 @@ if [ -f index.php ]; then
   printf "${BLACK}The index.php file already exists. Skipping creation.${RESET}\n\n"
 else
   # Copy/Paste file
-  cp ${ROOT_DIR}/files/index.php index.php
+  cp ${FILES_DIR}/roots/index.php index.php
   # Print success message
   printf "${GREEN}File created at: ${BOLD}index.php${RESET}\n\n"
 fi
@@ -43,7 +54,7 @@ if [ -f wp-cli.yml ]; then
   printf "${BLACK}The wp-cli.yml file already exists. Skipping creation.${RESET}\n\n"
 else
   # Copy/Paste file
-  cp ${ROOT_DIR}/files/wp-cli.yml wp-cli.yml
+  cp ${FILES_DIR}/roots/wp-cli.yml wp-cli.yml
   # Print success message
   printf "${GREEN}File created at: ${BOLD}wp-cli.yml${RESET}\n\n"
 fi
@@ -96,12 +107,12 @@ fi
 
 # Add Spatie Ray app files for development env.
 if $INSTALL_RAY_CONNECTIONS; then
-  source ${ROOT_DIR}/modules/ray-app-connections-module.sh
+  source ${MODULES_DIR}/ray-app-connections-module.sh
 fi
 
 # Add git and git assets.
 if $INSTALL_GIT; then
-  source ${ROOT_DIR}/modules/git-local-setup-module.sh
+  source ${MODULES_DIR}git-local-setup-module.sh
 fi
 
 # Build and start the project's Docker containers.
@@ -110,6 +121,6 @@ ddev start $PROJECT_NAME_SLUG
 echo '' # new line
 
 # Install WP with selected plugins and themes
-source ${ROOT_DIR}/modules/wp-install-module.sh
+source ${MODULES_DIR}/wp-install-module.sh
 
 printf "${MAGENTA}${BOLD}The ddev-wp-setup-script installation process is all finished! You may delete the /ddev-wp-setup-scripts directory if no errors were present.${RESET}\n\n"
