@@ -128,7 +128,7 @@ fi
 
 # Add git and git assets.
 if $INSTALL_GIT; then
-  source ${MODULES_DIR}git-local-setup-module.sh
+  source ${MODULES_DIR}/git-local-setup-module.sh
 fi
 
 # Build and start the project's Docker containers.
