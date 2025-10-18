@@ -11,7 +11,7 @@ else
    # Create the directories if they don't exist.
   mkdir -p "$(dirname "$ray_ini")"
   # Copy/Paste file
-  cp ${ROOT_DIR}/files/ray/php-ray.ini .ddev/php/
+  cp ${FILES_DIR}/ray/php-ray.ini .ddev/php/
   # Print success message
   printf "${GREEN}File created at: ${BOLD}${ray_ini}${RESET}\n\n"
 fi
@@ -27,7 +27,7 @@ else
   # Create the directories if they don't exist
   mkdir -p "$(dirname "$ray_dockerfile")"
   # Copy/Paste file
-  cp ${ROOT_DIR}/files/ray/Dockerfile .ddev/web-build/
+  cp ${FILES_DIR}/ray/Dockerfile .ddev/web-build/
   # Print success message
   printf "${GREEN}File created at: ${BOLD}${ray_dockerfile}${RESET}\n\n"
 fi
@@ -40,7 +40,7 @@ if [ -f "ray.php" ]; then
   printf "${BLACK}The ray.php file already exists. Skipping creation.${RESET}\n\n"
 else
   # Copy/Paste file
-  cp ${ROOT_DIR}/files/ray/ray.php ./
+  cp ${FILES_DIR}/ray/ray.php ./
   # Update file's local_path string
   sed -i '' "s|LOCAL_PROJECT_DIR|${PROJECT_DIR}|g" ray.php
   # Print success message
