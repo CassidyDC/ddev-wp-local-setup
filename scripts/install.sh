@@ -25,9 +25,9 @@ if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
 
     # Copy with error handling
     if cp -r root/. ../; then
-      printf "${GREEN}Successfully copied toolset files.${RESET}\n"
+      printf "${GREEN}Successfully copied toolset files.${RESET}\n\n"
     else
-      printf "${RED}ERROR: Failed to copy toolset files.${RESET}\n"
+      printf "${RED}ERROR: Failed to copy toolset files.${RESET}\n\n"
       cd ..
       rm -rf cassidydc-temp-toolset
       exit 1
@@ -36,7 +36,7 @@ if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
     cd ..
     rm -rf cassidydc-temp-toolset
   else
-    printf "${BRIGHT_RED}ERROR: Failed to clone development toolset repository.${RESET}\n"
+    printf "${BRIGHT_RED}ERROR: Failed to clone development toolset repository.${RESET}\n\n"
     exit 1
   fi
 fi
