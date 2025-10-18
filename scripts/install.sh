@@ -17,12 +17,28 @@ fi
 # Install CassidyDC Development Toolset root config files
 if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
   printf "${BLUE}Installing CassidyDC Development Toolset config files...${RESET}\n"
-  git clone --depth 1 --filter=blob:none --sparse git@github.com:CassidyDC/development-toolset.git cassidydc-temp-toolset
-  cd cassidydc-temp-toolset
-  git sparse-checkout set root
-  cp -r root/. ../
-  cd ..
-  rm -rf cassidydc-temp-toolset
+
+  # Clone with error handling
+  if git clone --depth 1 --filter=blob:none --sparse git@github.com:CassidyDC/development-toolset.git cassidydc-temp-toolset; then
+    cd cassidydc-temp-toolset
+    git sparse-checkout set root
+
+    # Copy with error handling
+    if cp -r root/. ../; then
+      printf "${GREEN}Successfully copied toolset files.${RESET}\n"
+    else
+      printf "${RED}ERROR: Failed to copy toolset files.${RESET}\n"
+      cd ..
+      rm -rf cassidydc-temp-toolset
+      exit 1
+    fi
+
+    cd ..
+    rm -rf cassidydc-temp-toolset
+  else
+    printf "${BRIGHT_RED}ERROR: Failed to clone development toolset repository.${RESET}\n"
+    exit 1
+  fi
 fi
 
 # Install WP Core Files in 'wordpress' directory with roots/wordpress composer package
