@@ -1,0 +1,19 @@
+# Ignore development directories
+.dev-assets
+.vscode
+node_modules
+vendor
+
+# Ignore development files
+composer.json
+composer.lock
+phpcs.xml
+phpstan.neon
+package.json
+package-lock.json
+.editorconfig
+.markdownlint-cli2.jsonc
+.prettierignore
+eslint.config.js
+lefthook.yml
+prettier.config.js
