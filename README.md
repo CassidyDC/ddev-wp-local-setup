@@ -7,9 +7,9 @@ This installation script automatically sets up a development Docker server with 
 _Note: [DDEV](https://ddev.com/) needs to be installed in order for the installation script to work._
 
 1. Clone this [repo](https://github.com/jacobcassidy/ddev-local-wordpress-script) to your (preferably empty) project's root directory with the command: **`git clone git@github.com:jacobcassidy/ddev-local-wordpress-script.git`**
-2. Customize the script's configuration settings at: _ddev-wp-setup-script/scripts/settings.sh_
-3. Run the installation script in you project's root directory with the command: **`ddev-wp-setup-script/scripts/install.sh`**
-4. Delete the _ddev-wp-setup-script_ directory after successfully running the installation script
+2. Customize the script's configuration settings at: _ddev-local-wordpress-script/scripts/settings.sh_
+3. Run the installation script in you project's root directory with the command: **`ddev-local-wordpress-script/scripts/install.sh`**
+4. Delete the _ddev-local-wordpress-script_ directory after successfully running the installation script
 
 ## Features
 
@@ -31,4 +31,4 @@ This script automatically sets up the following:
 
 ## Found an Issue?
 
-If you come across any issues, please report them in the [GitHub Repo](https://github.com/jacobcassidy/ddev-wp-setup-script/issues).
+If you come across any issues, please report them in the [GitHub Repo](https://github.com/jacobcassidy/ddev-local-wordpress-script/issues).

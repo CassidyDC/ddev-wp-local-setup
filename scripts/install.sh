@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get the constants
-source ddev-wp-setup-script/scripts/constants.sh
+source ddev-local-wordpress-script/scripts/constants.sh
 
 # Get the install settings
 source ${SCRIPTS_DIR}/settings.sh
@@ -123,4 +123,4 @@ echo '' # new line
 # Install WP with selected plugins and themes
 source ${MODULES_DIR}/wp-install-module.sh
 
-printf "${MAGENTA}${BOLD}The ddev-wp-setup-script installation process is all finished! You may delete the /ddev-wp-setup-scripts directory if no errors were present.${RESET}\n\n"
+printf "${MAGENTA}${BOLD}The ddev-local-wordpress-script installation process is all finished! You may delete the /ddev-local-wordpress-scripts directory if no errors were present.${RESET}\n\n"

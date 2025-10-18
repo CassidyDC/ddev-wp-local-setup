@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --- DIRECTORIES --- #
-ROOT_DIR='ddev-wp-setup-script'
+ROOT_DIR='ddev-local-wordpress-script'
 FILES_DIR="${ROOT_DIR}/files"
 MODULES_DIR="${ROOT_DIR}/modules"
 SCRIPTS_DIR="${ROOT_DIR}/scripts"
