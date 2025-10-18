@@ -1,4 +1,12 @@
-# Changelog for `ddev-wp-setup-script`
+# Changelog for `ddev-local-wordpress-script`
+
+## [2.2.2] - 2025-10-18
+
+-   Added CassidyDC Development Toolset install option.
+-   Added missing `SLEEP_HOOK` echo.
+-   Moved scripts into scripts directory and files under directories named after packages.
+-   Removed `.gitignore.txt` and `.editorconfig` files.
+-   Updated README instructions.
 
 ## [2.2.1] - 2025-08-20
 
