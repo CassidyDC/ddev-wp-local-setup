@@ -14,7 +14,7 @@ if ! [[ "$WP_USER_EMAIL" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]];
   exit 1
 fi
 
-# Install CassidyDC Development Toolset root config files
+# Install CassidyDC Development Toolset 'root' config files
 if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
   printf "${BLUE}Installing CassidyDC Development Toolset config files...${RESET}\n"
 
@@ -33,8 +33,13 @@ if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
       exit 1
     fi
 
+    # Cleanup
     cd ..
     rm -rf cassidydc-temp-toolset
+
+    # Install npm packages for toolset
+    printf "${BLUE}Installing CassidyDC Development Toolset NPM packages...${RESET}\n"
+    npm install
   else
     printf "${BRIGHT_RED}ERROR: Failed to clone development toolset repository.${RESET}\n\n"
     exit 1
@@ -126,9 +131,17 @@ if $INSTALL_RAY_CONNECTIONS; then
   source ${MODULES_DIR}/ray-app-connections-module.sh
 fi
 
-# Add git and git assets.
+# Install Git
 if $INSTALL_GIT; then
-  source ${MODULES_DIR}/git-local-setup-module.sh
+  # Initialize Git
+  printf "${BLUE}Initializing Git...${RESET}\n"
+  if [ -d '.git' ]; then
+    printf "${BLACK}Git is already initialized for this project. Skipping initialization.${RESET}\n\n"
+  else
+    git init
+    # Print success message
+    printf "${GREEN}Local Git repository created at: ${BOLD}.git${RESET}\n\n"
+  fi
 fi
 
 # Build and start the project's Docker containers.
