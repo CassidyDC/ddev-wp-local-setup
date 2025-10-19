@@ -1,5 +1,15 @@
 # Changelog for `ddev-local-wordpress-script`
 
+## [2.2.4] - 2025-10-19
+
+-   Added NPM install.
+-   Added missing slash in directory path.
+-   Added new lines for CLI spacing.
+-   Refactored Git install.
+-   Removed `ddev wp core is-installed` conditional check.
+-   Updated `cp` command to include dot files.
+-   Updated dev toolset installation with error handling.
+
 ## [2.2.3] - 2025-10-18
 
 -   Replaced `ddev-wp-setup-script` text with `ddev-local-wordpress-script`
