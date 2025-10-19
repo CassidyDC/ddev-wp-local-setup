@@ -2,13 +2,8 @@
 
 # Install WordPress
 printf "${BLUE}Installing WordPress...${RESET}\n"
-
-if ddev wp core is-installed > /dev/null 2>&1; then
-  printf "${BLACK}WordPress is already installed. Skipping installation.${RESET}\n\n"
-else
-  ddev wp core install --url="$DDEV_PRIMARY_URL" --title="${WP_SITE_TITLE:-$PROJECT_TITLE}" --admin_user="$WP_USER_NAME" --admin_password="$WP_USER_PASS" --admin_email="$WP_USER_EMAIL"
-  echo '' # new line
-fi
+ddev wp core install --url="$DDEV_PRIMARY_URL" --title="${WP_SITE_TITLE:-$PROJECT_TITLE}" --admin_user="$WP_USER_NAME" --admin_password="$WP_USER_PASS" --admin_email="$WP_USER_EMAIL"
+echo '' # new line
 
 if $INSTALL_WP_CLEAN; then
   # Hide default WordPress dashboard widgets
@@ -104,7 +99,7 @@ if $INSTALL_WP_DEFAULT_THEME; then
   fi
 fi
 
-# Install and activate CassidyWP Starter Block Theme
+# Install and activate CassidyDC WP Starter Block Theme
 if $INSTALL_CASSIDYDC_STARTER_THEME; then
   if ddev wp theme is-installed ${CASSIDYDC_STARTER_THEME_SLUG} > /dev/null 2>&1; then
     CUSTOM_THEME_NAME=$(ddev wp theme get ${CASSIDYDC_STARTER_THEME_SLUG} --field=name)
@@ -112,13 +107,13 @@ if $INSTALL_CASSIDYDC_STARTER_THEME; then
     printf "${BLACK}${CUSTOM_THEME_NAME} is already installed. Skipping installation.${RESET}\n\n"
   else
     printf "${BLUE}Creating ${CASSIDYDC_STARTER_THEME_SLUG} directory...${RESET}\n"
-    git clone git@github.com:jacobcassidy/cassidywp-starter-block-theme.git wp-content/themes/${CASSIDYDC_STARTER_THEME_SLUG}
+    git clone git@github.com:CassidyDC/cassidydc-wp-starter-block-theme.git wp-content/themes/${CASSIDYDC_STARTER_THEME_SLUG}
     CUSTOM_THEME_NAME=$(ddev wp theme get ${CASSIDYDC_STARTER_THEME_SLUG} --field=name)
     printf "${BLUE}Installing ${CUSTOM_THEME_NAME}...${RESET}\n"
     ddev wp theme activate ${CASSIDYDC_STARTER_THEME_SLUG}
     echo '' # new line
 
-    # Remove remote Git connection to CassidyWP Starter Block Theme repo.
+    # Remove remote Git connection to CassidyDC WP Starter Block Theme repo.
     printf "${BLUE}Removing cloned remote Git for ${CUSTOM_THEME_NAME}...${RESET}\n"
     git -C wp-content/themes/${CASSIDYDC_STARTER_THEME_SLUG} remote remove origin
     printf "${GREEN}Removed cloned remote Git connection for ${CUSTOM_THEME_NAME}.${RESET}\n\n"
