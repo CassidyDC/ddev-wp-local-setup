@@ -1,10 +1,13 @@
 #!/bin/bash
 
+# shellcheck disable=SC2059
+
 # Get the constants
-source ddev-local-wordpress-script/scripts/constants.sh
+# shellcheck source=/constants.sh
+source "$(dirname "${BASH_SOURCE[0]}")/constants.sh"
 
 # Get the install settings
-source ${SCRIPTS_DIR}/settings.sh
+source "${SCRIPTS_DIR}/settings.sh"
 
 echo '' # new line
 
@@ -20,26 +23,27 @@ if $INSTALL_CASSIDYDC_DEV_TOOLSET; then
 
   # Clone with error handling
   if git clone --depth 1 --filter=blob:none --sparse git@github.com:CassidyDC/development-toolset.git cassidydc-temp-toolset; then
-    cd cassidydc-temp-toolset
-    git sparse-checkout set root
+    if (
+      cd cassidydc-temp-toolset || exit 1
+      git sparse-checkout set root
 
-    # Copy with error handling
-    if cp -r root/. ../; then
-      printf "${GREEN}Successfully copied toolset files.${RESET}\n\n"
+      # Copy with error handling
+      if cp -r root/. ../; then
+        printf "${GREEN}Successfully copied toolset files.${RESET}\n\n"
+      else
+        printf "${RED}ERROR: Failed to copy toolset files.${RESET}\n\n"
+        exit 1
+      fi
+    ); then
+      rm -rf cassidydc-temp-toolset
+
+      # Install npm packages for toolset
+      printf "${BLUE}Installing CassidyDC Development Toolset NPM packages...${RESET}\n"
+      npm install
     else
-      printf "${RED}ERROR: Failed to copy toolset files.${RESET}\n\n"
-      cd ..
       rm -rf cassidydc-temp-toolset
       exit 1
     fi
-
-    # Cleanup
-    cd ..
-    rm -rf cassidydc-temp-toolset
-
-    # Install npm packages for toolset
-    printf "${BLUE}Installing CassidyDC Development Toolset NPM packages...${RESET}\n"
-    npm install
   else
     printf "${BRIGHT_RED}ERROR: Failed to clone development toolset repository.${RESET}\n\n"
     exit 1
@@ -82,7 +86,7 @@ fi
 
 # Set DDEV containers configuration
 printf "${BLUE}Setting DDEV configurations...${RESET}\n"
-ddev config --project-type=wordpress --project-name=$PROJECT_NAME_SLUG
+ddev config --project-type=wordpress --project-name="$PROJECT_NAME_SLUG"
 echo '' # new line
 
 # Add WP Config constants and set DDEV post-start hooks for restarts
@@ -146,10 +150,10 @@ fi
 
 # Build and start the project's Docker containers.
 printf "${BLUE}Starting DDEV containers...${RESET}\n"
-ddev start $PROJECT_NAME_SLUG
+ddev start "$PROJECT_NAME_SLUG"
 echo '' # new line
 
 # Install WP with selected plugins and themes
-source ${MODULES_DIR}/wp-install-module.sh
+source "${MODULES_DIR}/wp-install-module.sh"
 
 printf "${MAGENTA}${BOLD}The ddev-local-wordpress-script installation process is all finished! You may delete the /ddev-local-wordpress-scripts directory if no errors were present.${RESET}\n\n"

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# shellcheck disable=SC2059
+
 CONFIG_FILE=".ddev/config.yaml"
 
 # Set WP development configurations

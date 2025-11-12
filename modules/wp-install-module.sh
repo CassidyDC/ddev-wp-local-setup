@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# shellcheck disable=SC2059
+
 # Install WordPress
 printf "${BLUE}Installing WordPress...${RESET}\n"
 ddev wp core install --url="$DDEV_PRIMARY_URL" --title="${WP_SITE_TITLE:-$PROJECT_TITLE}" --admin_user="$WP_USER_NAME" --admin_password="$WP_USER_PASS" --admin_email="$WP_USER_EMAIL"
@@ -80,7 +82,7 @@ if $INSTALL_WP_CLEAN; then
     else
       HOMEPAGE_ID=$(ddev wp post create --post_type=page --post_title='Homepage' --post_author=1 --post_status=publish --post_content='<!-- wp:paragraph --><p>This is the homepage.</p><!-- /wp:paragraph -->' --porcelain)
       ddev wp option update show_on_front 'page'
-      ddev wp option update page_on_front $HOMEPAGE_ID
+      ddev wp option update page_on_front "$HOMEPAGE_ID"
       echo '' # new line
     fi
   fi
@@ -90,32 +92,32 @@ fi
 if $INSTALL_WP_DEFAULT_THEME; then
   printf "${BLUE}Installing default ${DEFAULT_WP_THEME_SLUG} theme...${RESET}\n"
 
-  if ddev wp theme is-installed ${DEFAULT_WP_THEME_SLUG} > /dev/null 2>&1; then
-    DEFAULT_THEME_NAME=$(ddev wp theme get ${DEFAULT_WP_THEME_SLUG} --field=name)
+  if ddev wp theme is-installed "${DEFAULT_WP_THEME_SLUG}" > /dev/null 2>&1; then
+    DEFAULT_THEME_NAME=$(ddev wp theme get "${DEFAULT_WP_THEME_SLUG}" --field=name)
     printf "${BLACK}${DEFAULT_THEME_NAME} is already installed. Skipping installation.${RESET}\n\n"
   else
-    ddev wp theme install $DEFAULT_WP_THEME_SLUG
+    ddev wp theme install "${DEFAULT_WP_THEME_SLUG}"
     echo '' # new line
   fi
 fi
 
 # Install and activate CassidyDC WP Starter Block Theme
 if $INSTALL_CASSIDYDC_STARTER_THEME; then
-  if ddev wp theme is-installed ${CASSIDYDC_STARTER_THEME_SLUG} > /dev/null 2>&1; then
-    CUSTOM_THEME_NAME=$(ddev wp theme get ${CASSIDYDC_STARTER_THEME_SLUG} --field=name)
+  if ddev wp theme is-installed "${CASSIDYDC_STARTER_THEME_SLUG}" > /dev/null 2>&1; then
+    CUSTOM_THEME_NAME=$(ddev wp theme get "${CASSIDYDC_STARTER_THEME_SLUG}" --field=name)
     printf "${BLUE}Installing ${CUSTOM_THEME_NAME}...${RESET}\n"
     printf "${BLACK}${CUSTOM_THEME_NAME} is already installed. Skipping installation.${RESET}\n\n"
   else
     printf "${BLUE}Creating ${CASSIDYDC_STARTER_THEME_SLUG} directory...${RESET}\n"
-    git clone git@github.com:CassidyDC/cassidydc-wp-starter-block-theme.git wp-content/themes/${CASSIDYDC_STARTER_THEME_SLUG}
-    CUSTOM_THEME_NAME=$(ddev wp theme get ${CASSIDYDC_STARTER_THEME_SLUG} --field=name)
+    git clone git@github.com:CassidyDC/cassidydc-wp-starter-block-theme.git wp-content/themes/"${CASSIDYDC_STARTER_THEME_SLUG}"
+    CUSTOM_THEME_NAME=$(ddev wp theme get "${CASSIDYDC_STARTER_THEME_SLUG}" --field=name)
     printf "${BLUE}Installing ${CUSTOM_THEME_NAME}...${RESET}\n"
-    ddev wp theme activate ${CASSIDYDC_STARTER_THEME_SLUG}
+    ddev wp theme activate "${CASSIDYDC_STARTER_THEME_SLUG}"
     echo '' # new line
 
     # Remove remote Git connection to CassidyDC WP Starter Block Theme repo.
     printf "${BLUE}Removing cloned remote Git for ${CUSTOM_THEME_NAME}...${RESET}\n"
-    git -C wp-content/themes/${CASSIDYDC_STARTER_THEME_SLUG} remote remove origin
+    git -C wp-content/themes/"${CASSIDYDC_STARTER_THEME_SLUG}" remote remove origin
     printf "${GREEN}Removed cloned remote Git connection for ${CUSTOM_THEME_NAME}.${RESET}\n\n"
   fi
 fi
