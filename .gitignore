@@ -5,15 +5,16 @@ node_modules
 vendor
 
 # Ignore development files
-composer.json
-composer.lock
-phpcs.xml
-phpstan.neon
-package.json
-package-lock.json
 .editorconfig
 .markdownlint-cli2.jsonc
 .prettierignore
+.shellcheckrc
+composer.json
+composer.lock
 eslint.config.js
 lefthook.yml
+package-lock.json
+package.json
+phpcs.xml
+phpstan.neon
 prettier.config.js
