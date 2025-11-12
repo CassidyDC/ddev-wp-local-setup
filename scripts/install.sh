@@ -79,19 +79,24 @@ if [ -f wp-cli.yml ]; then
   printf "${BLACK}The wp-cli.yml file already exists. Skipping creation.${RESET}\n\n"
 else
   # Copy/Paste file
-  cp ${FILES_DIR}/roots/wp-cli.yml wp-cli.yml
+  cp "${FILES_DIR}/roots/wp-cli.yml" wp-cli.yml
   # Print success message
   printf "${GREEN}File created at: ${BOLD}wp-cli.yml${RESET}\n\n"
 fi
 
 # Set DDEV containers configuration
 printf "${BLUE}Setting DDEV configurations...${RESET}\n"
-ddev config --project-type=wordpress --project-name="$PROJECT_NAME_SLUG"
+if ! ddev config --project-type=wordpress --project-name="$PROJECT_NAME_SLUG"; then
+  echo '' # new line
+  printf "${RED}${BOLD}The ddev config setup failed. Check if your project name already exists with ${GREEN}ddev list${RESET}\n\n" >&2
+  exit 1
+fi
+
 echo '' # new line
 
 # Add WP Config constants and set DDEV post-start hooks for restarts
 if $INSTALL_WP_CONFIG_HOOKS; then
-  source ${MODULES_DIR}/ddev-hooks-module.sh
+  source "${MODULES_DIR}/ddev-hooks-module.sh"
 
   # Create the log directory if it's set in the settings and doesn't yet exist
   if [ -n "$WP_DEBUG_LOG_VALUE" ] && [ "$WP_DEBUG_LOG_VALUE" != "false" ]; then
@@ -132,7 +137,7 @@ fi
 
 # Add Spatie Ray app files for development env.
 if $INSTALL_RAY_CONNECTIONS; then
-  source ${MODULES_DIR}/ray-app-connections-module.sh
+  source "${MODULES_DIR}/ray-app-connections-module.sh"
 fi
 
 # Install Git
@@ -156,4 +161,4 @@ echo '' # new line
 # Install WP with selected plugins and themes
 source "${MODULES_DIR}/wp-install-module.sh"
 
-printf "${MAGENTA}${BOLD}The ddev-local-wordpress-script installation process is all finished! You may delete the /ddev-local-wordpress-scripts directory if no errors were present.${RESET}\n\n"
+printf "${MAGENTA}${BOLD}The ddev-local-wordpress-script installation process is all finished! If no errors were present, you may delete the /ddev-local-wordpress-scripts directory.${RESET}\n\n"
