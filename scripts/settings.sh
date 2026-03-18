@@ -58,7 +58,7 @@ if $INSTALL_WP_CONFIG_HOOKS; then
   ### Set WP debug settings
   export WP_DEBUG_VALUE=true
   export WP_DEBUG_DISPLAY_VALUE=false
-  export WP_DEBUG_LOG_VALUE="'logs/wp-errors.log'"
+  export WP_DEBUG_LOG_VALUE="WP_CONTENT_DIR . 'logs/wp-errors.log'"
   export SCRIPT_DEBUG_VALUE=true
 
   ### Set WP environment settings
