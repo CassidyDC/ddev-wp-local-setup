@@ -102,14 +102,14 @@ if $INSTALL_WP_DEFAULT_THEME; then
 fi
 
 # Install and activate CassidyDC WP Starter Block Theme
-if $INSTALL_CASSIDYDC_STARTER_THEME; then
+if $INSTALL_CASSIDYDC_BLOCK_THEME; then
   if ddev wp theme is-installed "${CASSIDYDC_STARTER_THEME_SLUG}" > /dev/null 2>&1; then
     CUSTOM_THEME_NAME=$(ddev wp theme get "${CASSIDYDC_STARTER_THEME_SLUG}" --field=name)
     printf "${BLUE}Installing ${CUSTOM_THEME_NAME}...${RESET}\n"
     printf "${BLACK}${CUSTOM_THEME_NAME} is already installed. Skipping installation.${RESET}\n\n"
   else
     printf "${BLUE}Creating ${CASSIDYDC_STARTER_THEME_SLUG} directory...${RESET}\n"
-    git clone git@github.com:CassidyDC/cassidydc-wp-starter-block-theme.git wp-content/themes/"${CASSIDYDC_STARTER_THEME_SLUG}"
+    git clone git@github.com:CassidyDC/cassidydc-block-theme.git wp-content/themes/"${CASSIDYDC_STARTER_THEME_SLUG}"
     CUSTOM_THEME_NAME=$(ddev wp theme get "${CASSIDYDC_STARTER_THEME_SLUG}" --field=name)
     printf "${BLUE}Installing ${CUSTOM_THEME_NAME}...${RESET}\n"
     ddev wp theme activate "${CASSIDYDC_STARTER_THEME_SLUG}"

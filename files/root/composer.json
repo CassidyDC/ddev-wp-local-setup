@@ -1,0 +1,38 @@
+{
+	"name": "cassidydc/ddev-wp-local-setup",
+	"description": "CassidyDC default DDEV WordPress local setup.",
+	"version": "1.0.0",
+	"keywords": [
+		"ddev",
+		"docker",
+		"local development",
+		"wordpress",
+		"wp"
+	],
+	"homepage": "https://github.com/CassidyDC/ddev-wp-local-setup/blob/main/README.md",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "CassidyDC",
+			"email": "info@cassidydc.com",
+			"homepage": "https://cassidydc.com"
+		}
+	],
+	"require": {
+		"php": ">=8.3"
+	},
+	"support": {
+		"issues": "https://github.com/CassidyDC/ddev-wp-local-setup/issues"
+	},
+	"require-dev": {
+		"roots/wordpress": "*"
+	},
+	"config": {
+		"allow-plugins": {
+			"roots/wordpress-core-installer": true
+		}
+	},
+	"extra": {
+		"wordpress-install-dir": "wordpress"
+	}
+}

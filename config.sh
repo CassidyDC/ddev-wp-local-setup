@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SETTINGS
+# CONFIGURATION SETTINGS
 
 ## Set WP Admin login details for user 1
 export WP_USER_NAME='admin'
@@ -8,25 +8,28 @@ export WP_USER_PASS='password'
 export WP_USER_EMAIL='admin@example.com'
 
 ## Boolean Settings
-export INSTALL_CASSIDYDC_DEV_TOOLSET=true # Installs https://github.com/CassidyDC/development-toolset `root` files
-export INSTALL_CASSIDYDC_STARTER_THEME=false # Install CassidyDC's WP Starter Block Theme
-export INSTALL_GIT=true # Install local Git repo and .gitignore file for the project
+export INSTALL_CASSIDYDC_TOOLSET=true # Installs the https://github.com/CassidyDC/cassidydc-toolset `wp-content` files
+export INSTALL_CASSIDYDC_BLOCK_THEME=true # Installs https://github.com/CassidyDC/cassidydc-block-theme
+
+export INSTALL_GIT=true # Install local Git repo and .gitignore file for the project in the `wp-content` directory
 export INSTALL_RAY_CONNECTIONS=true # Install Spatie Ray app connection files to work with Docker containers
+
 export INSTALL_WP_CLEAN=true # Install clean version of WP (individual settings can be set below)
 export INSTALL_WP_CONFIG_HOOKS=true # Install ddev post-start hooks for wp-config (individual settings can be set below)
 export INSTALL_WP_DEFAULT_THEME=true # Install official default WordPress theme
+
 export INSTALL_WP_PLUGIN_AIOM=false # All-in-One WP Migration plugin
-export INSTALL_WP_PLUGIN_AIOMUE_LOCAL=false # All-in-One WP Migration Unlimited Extension plugin from local machine
 export INSTALL_WP_PLUGIN_QUERY_MONITOR=false # Query Monitor plugin for developers
+
+## Uncomment and update the line below if you set `INSTALL_WP_PLUGIN_AIOMUE_LOCAL` to true:
+export INSTALL_WP_PLUGIN_AIOMUE_LOCAL=false # All-in-One WP Migration Unlimited Extension plugin from local machine
+# export LOCAL_AIOMUE_PATH='/Users/Jacob/Projects/Assets/Packages/WordPress/Plugins/All In One Migration Unlimited Extension/all-in-one-wp-migration-unlimited-extension_2.65.zip'
 
 ## Uncomment and update the following line to set a custom site title (defaults to the project name taken from the project directory):
 # export WP_SITE_TITLE='Example Title'
 
 ## Uncomment and update the following line to set a DB search and replace post-import-db hook:
 # export DB_URL_REPLACE_VALUE="https://example.com https://example.ddev.site"
-
-## Uncomment and update the following line if you set `INSTALL_WP_PLUGIN_AIOMUE_LOCAL` to true:
-# export LOCAL_AIOMUE_PATH='/Users/Jacob/Projects/Assets/Packages/WordPress/Plugins/All In One Migration Unlimited Extension/all-in-one-wp-migration-unlimited-extension_2.65.zip'
 
 ## WP Clean Settings
 if $INSTALL_WP_CLEAN; then
@@ -58,7 +61,7 @@ if $INSTALL_WP_CONFIG_HOOKS; then
   ### Set WP debug settings
   export WP_DEBUG_VALUE=true
   export WP_DEBUG_DISPLAY_VALUE=false
-  export WP_DEBUG_LOG_VALUE="WP_CONTENT_DIR . 'logs/wp-errors.log'"
+  export WP_DEBUG_LOG_VALUE="__DIR__ . '/wp-content/logs/wp-errors.log'"
   export SCRIPT_DEBUG_VALUE=true
 
   ### Set WP environment settings

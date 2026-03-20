@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # --- DIRECTORIES --- #
-export ROOT_DIR='ddev-local-wordpress-script'
+export ROOT_DIR='ddev-wp-local-setup'
 export FILES_DIR="${ROOT_DIR}/files"
-export MODULES_DIR="${ROOT_DIR}/modules"
 export SCRIPTS_DIR="${ROOT_DIR}/scripts"
 
 # --- PROJECT VARIABLES --- #
@@ -50,5 +49,5 @@ export RESET='\033[0m'
 ## Set the default official WordPress theme slug
 export DEFAULT_WP_THEME_SLUG='twentytwentyfive'
 ## Set the CassidyDC WP Starter Block Theme slug
-export CASSIDYDC_STARTER_THEME_SLUG='cassidydc-wp-starter-block-theme'
+export CASSIDYDC_STARTER_THEME_SLUG='cassidydc-block-theme'
 
