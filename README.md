@@ -26,7 +26,7 @@ This script automatically sets up the following:
 
 -   Configures and starts the [DDEV](https://ddev.com/) Docker containers with a WordPress development server.
 -   Installs a clean WordPress site with the default pages, posts, comments, plugins, themes, welcome panel and dashboard widgets removed (with the exception of the latest official default theme as a fallback).
--   (Optional) Downloads and installs the [CassidyDC Development Toolset](https://github.com/CassidyDC/development-toolset).
+-   (Optional) Downloads and installs the [CassidyDC WP Dev Toolset](https://github.com/CassidyDC/wp-dev-toolset).
 -   (Optional) Downloads, installs, and activates the [CassidyDC WP Starter Block Theme](https://github.com/CassidyDC/cassidydc-wp-starter-block-theme).
 -   (Optional) Installs the [All-in-One WP Migration plugin](https://wordpress.org/plugins/all-in-one-wp-migration/).
 -   (Optional) Installs the [All-in-One WP Migration Unlimited Extension plugin](https://servmask.com/products/unlimited-extension).
