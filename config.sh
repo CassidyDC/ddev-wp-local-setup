@@ -8,7 +8,7 @@ export WP_USER_PASS='password'
 export WP_USER_EMAIL='admin@example.com'
 
 ## Boolean Settings
-export INSTALL_CASSIDYDC_TOOLSET=true # Installs the https://github.com/CassidyDC/cassidydc-toolset `wp-content` files
+export INSTALL_WP_DEV_TOOLSET=true # Installs the https://github.com/CassidyDC/wp-dev-toolset `wp-content` files
 export INSTALL_CASSIDYDC_BLOCK_THEME=true # Installs https://github.com/CassidyDC/cassidydc-block-theme
 
 export INSTALL_GIT=true # Install local Git repo and .gitignore file for the project in the `wp-content` directory
